@@ -1,0 +1,4 @@
+data/data_feature.xlsx
+**/__pycache__/*
+data/weights_*/*
+data/data_feature.xlsx
