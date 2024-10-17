@@ -15,17 +15,32 @@ Currently, a random dataset was generated for running the baseline code, a simul
 ### ML baseline
 ```
 cd src
-python ml_baseline
+python ml_baseline.py
 ```
-This command runs the 6 traditional machine learning models, LogisticRegression, SVC, RandomForestClassifier, DecisionTreeClassifier, KNeighborsClassifier
+This command runs the 6 traditional machine learning models: LogisticRegression, SVC, RandomForestClassifier, DecisionTreeClassifier, KNeighborsClassifier
 
 ### NN baseline
 ```
 cd src
-python nn_baseline
+python nn_baseline.py
 ```
 
-This commonds runs the 4 neural network models, including 1 MLP, 1 LSTM, and 2 CNNs
+This commands runs the 4 neural network models, including 1 MLP, 1 LSTM, and 2 CNNs
 
 ### TCLP
-This part will be released after paper has been accepted 
+```
+cd src
+python train_models.py
+```
+
+# Cite
+If you find this is useful, please cite our paper
+```
+@article{wang2024transfer,
+  title={Transfer Contrastive Learning for Raman Spectroscopy Skin Cancer Tissue Classification},
+  author={Wang, Zhiqiang and Lin, Yanbin and Zhu, Xingquan},
+  journal={IEEE Journal of Biomedical and Health Informatics},
+  year={2024},
+  publisher={IEEE}
+}
+```
