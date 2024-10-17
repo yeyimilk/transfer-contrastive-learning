@@ -83,17 +83,10 @@ def load_data(dtype='origin'):
     else:
         x, y, _ = generate_faked_data()
     
-    
-    print("x shape: ", x.shape)
-    print("y shape: ", y.shape)
-    
     if dtype == 'origin':
         return x, y, _
     elif dtype == 'pca':
         return pca(x), y, _
-    elif dtype == 'mov_ave':
-        print("moving average ==> ", cfig.mv)
-        return moving_average(x, cfig.mv), y, _
     
     return x, y, _
 

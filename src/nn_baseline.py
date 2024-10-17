@@ -1,9 +1,10 @@
-from models import CNNModel, MLP, LSTM
+from models import CNNModel, MLP, LSTM, RNN
 from trainer_utils import train_n_times
 from config import cfig
 from args_parser import parse_args
 import os
 from config import cfig
+from models import RNN
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -15,10 +16,14 @@ def train_nn_baseline():
     runs = cfig.get_n_runs()
     train_n_times(runs, lambda _: MLP([100, 32], shape), load_weights=False, prefix=prefix)
     train_n_times(runs, lambda _: LSTM([100, 500], shape), load_weights=False, prefix=prefix)
-    train_n_times(runs, lambda _: CNNModel(0, shape), load_weights=False, prefix=prefix)
     train_n_times(runs, lambda _: CNNModel(1, shape), load_weights=False, prefix=prefix)
 
+    prefix = '/baseline/rnn'
+    train_n_times(runs, lambda _: RNN([100], shape, True, False, 'SimpleRNN'), load_weights=False, prefix=prefix)
+    train_n_times(runs, lambda _: RNN([100], shape, True, False, 'LSTM'), load_weights=False, prefix=prefix)
+    train_n_times(runs, lambda _: RNN([100], shape, True, True, 'GRU'), load_weights=False, prefix=prefix)
 
+    
 if __name__ == "__main__":
     parse_args()
     train_nn_baseline()

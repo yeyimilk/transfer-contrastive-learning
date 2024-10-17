@@ -46,22 +46,6 @@ class CNNModel(NN):
         self.case = case
         self.name = f"cnn_{case}"
         super().__init__(shape)
-        
-    def build_case0(self):
-        # https://www.sciencedirect.com/science/article/pii/S1386142521003085
-        # Classifying breast cancer tissue by Raman spectroscopy with one-dimensional convolutional neural network
-        # Define the model
-        model = keras.models.Sequential([
-            keras.layers.Lambda(lambda x: tf.expand_dims(x, axis=-1)),
-            keras.layers.Conv1D(filters=10, kernel_size=10, strides=2, activation='relu'),
-            keras.layers.MaxPooling1D(pool_size=2, strides=2),
-            keras.layers.Lambda(lambda x: tf.reduce_max(x, axis=-1)),
-            keras.layers.BatchNormalization(),
-            keras.layers.Dense(100, activation='relu'),
-            keras.layers.BatchNormalization(),
-            keras.layers.Dense(3, activation='softmax')
-        ])
-        self.model = model
     
     def build_case1(self):
         model = keras.models.Sequential([
@@ -74,11 +58,8 @@ class CNNModel(NN):
         self.model = model
 
     def build_model(self):
-        if self.case == 0:
-            self.build_case0()
-        else:
-            self.build_case1()
-
+        self.build_case1()
+            
 class MLP(NN):
     def __init__(self, layers, shape):
         self.layers = layers
@@ -108,6 +89,41 @@ class LSTM(NN):
         ]
         
         for num in range(1, len(self.layers)):
+            sequences.append(keras.layers.Dense(num, activation=tf.nn.relu))
+
+        sequences.append(keras.layers.Dense(3, activation='softmax'))
+        model = keras.Sequential(sequences)
+        self.model = model
+
+
+class RNN(NN):
+    def __init__(self, layers, shape, return_sequences, flat, r_unit):
+        self.layers = layers
+        self.return_seq = return_sequences
+        self.flat = flat
+        
+        if r_unit == 'SimpleRNN':
+            self.R_Unit = keras.layers.SimpleRNN
+        elif r_unit == 'LSTM':
+            self.R_Unit = keras.layers.LSTM
+        else:
+            self.R_Unit = keras.layers.GRU
+        
+        self.name = f"rnn_{'_'.join([str(l) for l in layers])}_{'_'.join([str(l) for l in return_sequences])}_flat_{flat}_r_unit_{r_unit}"
+        super().__init__(shape)
+        
+    def build_model(self):
+        sequences = [keras.layers.Lambda(lambda x: tf.expand_dims(x, axis=-1))]
+        
+        for i in range(len(self.return_seq)):
+            sequences.append(self.R_Unit(self.layers[i], return_sequences=self.return_seq))
+        
+        if self.flat:
+            sequences.append(keras.layers.Flatten())
+        else:
+            sequences.append(keras.layers.Lambda(lambda x: tf.reduce_max(x, axis=-1)))
+        
+        for num in range(len(self.return_seq), len(self.layers)):
             sequences.append(keras.layers.Dense(num, activation=tf.nn.relu))
 
         sequences.append(keras.layers.Dense(3, activation='softmax'))

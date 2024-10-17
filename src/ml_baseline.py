@@ -38,6 +38,7 @@ def train_with_ramens(get_model):
         accuracy.append(score)
     mean = np.mean(accuracy)    
     dic["mean"] = mean
+    dic['accuracy'] = mean
     
     return dic
         
