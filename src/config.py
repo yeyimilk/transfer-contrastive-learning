@@ -1,4 +1,5 @@
 from datetime import datetime
+import argparse
 class Config:
     def __init__(self) -> None:
         self.pre_epochs = 100
@@ -6,7 +7,7 @@ class Config:
         self.is_debug = False
         self.n_cross = 5
         self.val_size = 0.1
-        self.n_runs = 20
+        self.n_runs = 1
         self.set_augmentations(300, 0.1, 0.1, 100)
         self.t = 0.007
         self.l = [12]
@@ -135,3 +136,4 @@ def run_args():
     cfig.set_n_cross_v(parser.parse_args().n_cross)
     cfig.set_dtype(parser.parse_args().dtype)
     cfig.set_er(parser.parse_args().er)
+    cfig.args = parser.parse_args()

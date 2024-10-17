@@ -53,7 +53,7 @@ def train_with_ramens(get_model, load_weights, with_clr=False):
     
     for i, (train_index, test_index) in tqdm(enumerate(kf.split(x))):
         
-        x_train, x_val, y_train, y_val = train_test_split(x[train_index], y[train_index], test_size=cfig.args.val, random_state=42, shuffle=True)
+        x_train, x_val, y_train, y_val = train_test_split(x[train_index], y[train_index], test_size=1/n_splits, random_state=42, shuffle=True)
         x_test, y_test = x[test_index], y[test_index]
         
         model = get_model(load_weights)

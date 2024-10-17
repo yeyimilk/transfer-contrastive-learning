@@ -26,12 +26,17 @@ class NN(ABC):
             y=None,
             batch_size=None,
             epochs=1,
-            verbose=0,
+            verbose='auto',
             validation_data=None,
             validation_batch_size=None,
-            validation_freq=100):
-        return self.model.fit(x=x,y=y,batch_size=batch_size,epochs=epochs,verbose=verbose,validation_data=validation_data,validation_batch_size=validation_batch_size,validation_freq=validation_freq)
-
+            validation_freq=1,
+            callbacks=None):
+        return self.model.fit(x=x,y=y,batch_size=batch_size,epochs=epochs,
+                              verbose=verbose,validation_data=validation_data,
+                              validation_batch_size=validation_batch_size,
+                              validation_freq=validation_freq,
+                              callbacks=callbacks)
+        
     def predict(self, x_test, verbose=1):
         return self.model.predict(x_test, verbose=verbose)
 
