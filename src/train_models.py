@@ -4,15 +4,11 @@ from pre_train import pre_train_model_with_cells, get_name_from_keys_kinds, get_
 import tensorflow as tf
 from config import cfig, run_args
 
-Combinations = {
-            'keys': ['MEL-S', 'A-S', 'G', 'A', 'ZAM', 'G-S', 'DMEM-S', 'HF', 'HF-S', 'ZAM-S', 'MEL', 'DMEM'],
-            'kinds': ['COOH', 'NH2', '(COOH)2']
-    }
+RS_KEYS = ['MEL-S', 'A-S', 'G', 'A', 'ZAM', 'G-S', 'DMEM-S', 'HF', 'HF-S', 'ZAM-S', 'MEL', 'DMEM']
+RS_KINDS = ['COOH', 'NH2', '(COOH)2']
 
 def train_pretrain_models(prefix, get_model):
-    keys = Combinations['keys']
-    kinds = Combinations['kinds']
-    cell_name = get_name_from_keys_kinds(keys, kinds)
+    cell_name = get_name_from_keys_kinds(RS_KEYS, RS_KINDS)
     setup_and_train_model_with_weights(get_model, cfig.n_runs, prefix, cell_name)
         
 
@@ -31,10 +27,8 @@ def evaluate_models(get_model):
        
 def evaluate_transfer_pretrain_models(get_model):
     prefix = 'transfer_pretrain/'
-    keys = Combinations['keys']
-    kinds = Combinations['kinds']
-    model = get_model(len(keys))
-    pre_train_model_with_cells(keys, kinds, model, prefix=prefix)
+    model = get_model(len(RS_KEYS))
+    pre_train_model_with_cells(RS_KEYS, RS_KINDS, model, prefix=prefix)
         
         
     train_pretrain_models(prefix, get_model)
@@ -54,12 +48,7 @@ def evaluate_simclr_pretrain_models(get_model):
         simclr.compile(c_optimizer, p_optimizer)
         pre_train_model_with_cells(keys, kinds, simclr, prefix=prefix, mname=model.name)
     
-    for com in Combinations:
-        keys = com['keys']
-        kinds = com['kinds']
-        setup_and_pretrain_simclr(get_model, keys, kinds, prefix)
-        if cfig.get_debug():
-            break
+    setup_and_pretrain_simclr(get_model, RS_KEYS, RS_KINDS, prefix)
     train_pretrain_models(prefix, get_model)
 
 def evaluate_simclr_train_models(get_model):

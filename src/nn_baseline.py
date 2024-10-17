@@ -18,9 +18,9 @@ def train_nn_baseline():
     train_n_times(runs, lambda _: CNNModel(1, shape), load_weights=False, prefix=prefix)
 
     prefix = '/baseline/rnn'
-    train_n_times(runs, lambda _: RNN([100], shape, True, False, 'SimpleRNN'), load_weights=False, prefix=prefix)
-    train_n_times(runs, lambda _: RNN([100], shape, True, False, 'LSTM'), load_weights=False, prefix=prefix)
-    train_n_times(runs, lambda _: RNN([100], shape, True, True, 'GRU'), load_weights=False, prefix=prefix)
+    train_n_times(runs, lambda _: RNN([100], shape, [True], False, 'SimpleRNN'), load_weights=False, prefix=prefix)
+    train_n_times(runs, lambda _: RNN([100], shape, [True], False, 'LSTM'), load_weights=False, prefix=prefix)
+    train_n_times(runs, lambda _: RNN([100], shape, [True], True, 'GRU'), load_weights=False, prefix=prefix)
 
     
 if __name__ == "__main__":

@@ -134,21 +134,6 @@ def extend_hard_wave(original_array):
             extended_array.append(original_array[i])
             extended_array.append(original_array[i + 1])
     return extended_array
-    
-
-def extend_wave(d_array):
-    if cfig.wave == 0:
-        return d_array
-    
-    extend_array = []
-    for array in d_array:
-        if cfig.wave == 1:
-            extend_array.append(extend_hard_wave(array))
-        elif cfig.wave == 2:
-            extend_array.append(extend_smooth_wave(array))
-    
-    return np.array(extend_array)
-    
 
 def get_cell_data_with_keys(keys, kinds, batch = 49, dtype='origin'):
     data = get_cell_data()
@@ -165,7 +150,6 @@ def get_cell_data_with_keys(keys, kinds, batch = 49, dtype='origin'):
         y_i += 1
     
     samples = np.array(samples)
-    samples = extend_wave(samples)
     
     if dtype == 'pca':
         samples = pca(samples)
