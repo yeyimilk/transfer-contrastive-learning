@@ -1,9 +1,8 @@
 from models import CNNModel, MLP, LSTM, RNN
 from trainer_utils import train_n_times
 from config import cfig
-from args_parser import parse_args
 import os
-from config import cfig
+from config import cfig, run_args
 from models import RNN
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -25,6 +24,6 @@ def train_nn_baseline():
 
     
 if __name__ == "__main__":
-    parse_args()
+    run_args()
     train_nn_baseline()
     

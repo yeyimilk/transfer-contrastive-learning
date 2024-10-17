@@ -9,7 +9,7 @@ import numpy as np
 from sklearn.model_selection import KFold
 from utils import save_to_file
 from config import cfig
-from args_parser import parse_args
+from config import run_args
 
 
 def train_with_ramens(get_model):
@@ -65,5 +65,5 @@ def train_mls():
     
 
 if __name__ == "__main__":
-    parse_args()
+    run_args()
     train_mls()

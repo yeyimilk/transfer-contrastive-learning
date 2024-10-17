@@ -2,8 +2,7 @@ from models import StraightNN, ResNN, RNN_, MLP_, CNN_O, Simclr
 from trainer_utils import train_n_times
 from pre_train import pre_train_model_with_cells, get_name_from_keys_kinds, get_weights_path
 import tensorflow as tf
-from config import cfig
-from config import run_args
+from config import cfig, run_args
 
 Combinations = {
             'keys': ['MEL-S', 'A-S', 'G', 'A', 'ZAM', 'G-S', 'DMEM-S', 'HF', 'HF-S', 'ZAM-S', 'MEL', 'DMEM'],
@@ -92,5 +91,5 @@ def evalutes():
 
 
 if __name__ == "__main__":
-    parse_args()
+    run_args()
     evalutes()
