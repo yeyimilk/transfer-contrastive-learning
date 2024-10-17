@@ -14,7 +14,7 @@ def get_name_from_keys_kinds(keys, kinds):
 def get_weights_path(cell_name, model_name, prefix=""):
     path_name = f"_{model_name}_{cell_name}"
     abs_path = pathlib.Path(__file__).parent.parent.resolve()
-    full_path = f"{abs_path}/data/weights_{cfig.get_pre_train_epochs()}_{cfig.dtype}_{cfig.args.val}/{prefix}"
+    full_path = f"{abs_path}/data/weights_{cfig.get_pre_train_epochs()}_{cfig.dtype}/{prefix}"
     make_sure_folder_exists(full_path)
     return f"{full_path}{path_name}.h5"
 

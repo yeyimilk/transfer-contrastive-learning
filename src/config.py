@@ -6,7 +6,6 @@ class Config:
         self.fine_epochs = 100
         self.is_debug = False
         self.n_cross = 5
-        self.val_size = 0.1
         self.n_runs = 1
         self.set_augmentations(300, 0.1, 0.1, 100)
         self.t = 0.007
@@ -39,13 +38,6 @@ class Config:
     
     def get_n_cross_v(self):
         return self.n_cross
-    
-    def set_val_size(self, val_size):
-        self.val_size = val_size
-        return self
-    
-    def get_val_size(self):
-        return self.val_size
     
     def get_debug(self):
         return self.is_debug
@@ -94,10 +86,6 @@ class Config:
             self.set_augmentations(30, 0.1, 0.1, 10)
         return self
     
-    def get_tag(self):
-        self.tag = f"{self.dtype}/t_{self.now}"
-        return self.tag
-    
     def simclr_shape(self):
         shape = (1608, )
         if self.dtype == 'pca':
@@ -124,6 +112,7 @@ def run_args():
     parser.add_argument('--l', type=str, default='12', help='layers')
     parser.add_argument('--n_cross', type=int, default=5, help='n cross valiation, 0 is one out')
     parser.add_argument('--dtype', type=str, default='origin', help='data type, origin or pca or mov_ave')
+    parser.add_argument('--tag', type=str, default='', help='tag')
     parser.add_argument('--er', type=int, default=0, help='early stopping')
     
     cfig.set_pre_train_epochs(parser.parse_args().pre)
@@ -136,4 +125,5 @@ def run_args():
     cfig.set_n_cross_v(parser.parse_args().n_cross)
     cfig.set_dtype(parser.parse_args().dtype)
     cfig.set_er(parser.parse_args().er)
+    cfig.tag = parser.parse_args().tag
     cfig.args = parser.parse_args()

@@ -100,6 +100,6 @@ def train_n_times(n, get_model, load_weights, prefix='', with_clr=False):
     name = model.name
     if prefix:
         postfix = load_weights if load_weights else ""
-        name = f"{cfig.dtype}/n_{cfig.n_runs}_pe_{cfig.pre_epochs}_ep_{cfig.fine_epochs}_er_{cfig.er}_tag_{cfig.tag}_{cfig.args.val}/{prefix}_{name}_{postfix}"
+        name = f"{cfig.dtype}/n_{cfig.n_runs}_pe_{cfig.pre_epochs}_ep_{cfig.fine_epochs}_er_{cfig.er}_tag_{cfig.tag}/{prefix}_{name}_{postfix}"
     save_to_file(results, name, "json")
     return results

@@ -7,7 +7,6 @@ class Config:
         self.fine_epochs = 100
         self.is_debug = False
         self.n_cross = 5
-        self.val_size = 0.1
         self.n_runs = 1
         self.set_augmentations(300, 0.1, 0.1, 100)
         self.t = 0.007
@@ -40,13 +39,6 @@ class Config:
     
     def get_n_cross_v(self):
         return self.n_cross
-    
-    def set_val_size(self, val_size):
-        self.val_size = val_size
-        return self
-    
-    def get_val_size(self):
-        return self.val_size
     
     def get_debug(self):
         return self.is_debug
