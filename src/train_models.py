@@ -3,6 +3,7 @@ from trainer_utils import train_n_times
 from pre_train import pre_train_model_with_cells, get_name_from_keys_kinds, get_weights_path
 import tensorflow as tf
 from config import cfig
+from config import run_args
 
 Combinations = {
             'keys': ['MEL-S', 'A-S', 'G', 'A', 'ZAM', 'G-S', 'DMEM-S', 'HF', 'HF-S', 'ZAM-S', 'MEL', 'DMEM'],
@@ -89,3 +90,7 @@ def evalutes():
     evalute_model(lambda _: RNN_([100], shape, [True], True, 'GRU', out = _ if type(_) == int else 3))
     evalute_model(lambda _: RNN_([100], shape, [True], False, 'LSTM', out = _ if type(_) == int else 3))
 
+
+if __name__ == "__main__":
+    parse_args()
+    evalutes()
